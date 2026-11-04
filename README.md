@@ -1,2 +1,2 @@
 # Study-Note
-Roy is studying pentest!
+Roy is studying pentest! Everyday Errrrrdaaaayyy!!
