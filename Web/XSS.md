@@ -57,7 +57,7 @@ XSS가 되면 공격자는 **그 사람이 보고 있는 웹사이트 안에서*
 
 - **Stored XSS (Persistent)** : 사용자 입력이 백엔드 데이터베이스에 저장된 후, 나중에 페이지를 볼 때 실행됨 (예: 게시글, 댓글). 한 번 저장되면 여러 사용자에게 지속적으로 영향. 위험도 가장 높음.
 - **Reflected XSS (Non-Persistent)** : 사용자 입력이 서버에서 처리된 후 즉시 응답에 반영되어 실행 됨 (예: 검색 결과, 에러 메시지). 저장되지 않음. 보통 악성 링크를 클릭해야 실행됨. 위험도 중간.
-- **DOM-based XSS** : 사용자 입력이 서버를 거치지 않고 클라이언트 측 JavaScript에서 직접 처리되어 실행됨 (예: URL fragment, document.location 등). 서버 로그에 남지 않는 경우가 많음. 위험도 상황에 따라 다름.
+- **DOM-based (Document Object Model) XSS** : 사용자 입력이 서버를 거치지 않고 클라이언트 측 JavaScript에서 직접 처리되어 실행됨 (예: URL fragment, document.location 등). 서버 로그에 남지 않는 경우가 많음. 위험도 상황에 따라 다름.
 
 **DOM-based XSS**
 위험도 높음
