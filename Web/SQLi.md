@@ -78,3 +78,11 @@ SELECT * FROM users WHERE username = 'usernameInput' AND password = 'passwordInp
 ```
 SELECT * FROM users WHERE username = '' AND 1=CONVERT(int, @@VERSION) -- - AND password = 'passwordInput';
 ```
+**쿼리 설명**
+| 부분     | 의미                | 설명    |
+| ------ | ------------------------- | ---------------- |
+| '  | 문자열 닫기                   | 저장되지 않음          |
+| AND 1=  | 조건 추가            | 매번 악성 링크를 클릭해야 함 |
+| CONVERT(int, ...) | 강제 형변환   | 피해자가 링크를 클릭해야 함  |
+| @@version  | 버전 조회         | 보통 한 명씩 공격       |
+| -- - | 주석 처리 | 상대적으로 어려움        |
