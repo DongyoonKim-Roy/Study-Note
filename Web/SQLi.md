@@ -21,11 +21,11 @@ SELECT * FROM users WHERE username = 'usernameInput' AND password = 'passwordInp
 ```
 이때 어플리케이션이 입력값을 `제대로 검증하지 않고` 쿼리에 그대로 붙여 넣으면, 공격자가 SQL 문법 자체를 조작 가능.
 
-나쁜 사람이 비밀번호 칸에 다음과 같이 입력한다고 가정.
+공격자가 비밀번호 칸에 다음과 같이 입력한다고 가정.
 ```
 ' OR '1'='1
 ```
-실제 실행되는 쿼리는
+실제 실행되는 쿼리
 ```
 SELECT * FROM users WHERE username = 'usernameInput' AND password = '' OR '1'='1';
 ```
@@ -58,8 +58,23 @@ SELECT * FROM users WHERE username = 'usernameInput' AND password = '' OR '1'='1
 일부 사이트는 "에러가 났습니다" 같은 메시지 안에 `데이터베이스가 반환한 원본 에러`를 그대로 출력 함.\
 공격자는 이 점을 이용하여 `의도적으로 에러를 발생`시키고,\
 에러 메시지 안에 들어 있는 정보를 읽어냄.\
-**특징**
-- 데이터베이스가 반환하는 `에러 메세지`를 통해 정보를 추출
-- 에러에 테이블명, 컬럼명, 데이터 일부가 포함되는 경우 활용
-- 가장 직관적이고 빠른 편
 
+**왜 가능한가?**
+- 데이터베이스가 반환하는 `에러 메세지`를 통해 정보를 추출
+- 에러에 테이블명, 컬럼명, 데이터 일부가 포함되는 경우
+
+**예시**
+로그인 예시:
+```
+SELECT * FROM users WHERE username = 'usernameInput' AND password = 'passwordInput';
+```
+
+공격자가 username 칸에 다음과 같이 입력한다고 가정.
+```
+' AND 1=CONVERT(1,@@version) -- -
+```
+
+실제 실행되는 쿼리
+```
+SELECT * FROM users WHERE username = '' AND 1=CONVERT(int, @@VERSION) -- - AND password = 'passwordInput';
+```
