@@ -17,10 +17,16 @@
 
 로그인 예시:
 ```
-SELECT * FROM users WHERE username = 'usernameInput' AND password = 'passwordInput'
+SELECT * FROM users WHERE username = 'usernameInput' AND password = 'passwordInput';
 ```
 이때 어플리케이션이 입력값을 `제대로 검증하지 않고` 쿼리에 그대로 붙여 넣으면, 공격자가 SQL 문법 자체를 조작 가능.
 
 나쁜 사람이 비밀번호 칸에 다음과 같이 입력한다고 가정.
 ```
+' OR '1'='1
 ```
+실제 실행되는 쿼리는
+```
+SELECT * FROM users WHERE username = 'usernameInput' AND password = '' OR '1'='1';
+```
+`'1'='1'` 은 항상 참이기 때문에, 비밀번호가 틀려도 로그인 우회 가능.
