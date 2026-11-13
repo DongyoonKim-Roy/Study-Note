@@ -123,3 +123,32 @@ SELECT * FROM users WHERE username = '' AND 1=CONVERT(int, @@VERSION) -- - AND p
 **화면에 같이 출력**되게 만듬.
 즉,\
 **결과를 보여주는 화면을 이용해서, 원래는 볼 수 없는 데이터를 끌어와 보여주는 기법**.
+
+정상 쿼리:
+```
+SELECT title, content FROM products WHERE id = 'idInput';
+```
+
+공격자 쿼리:
+```
+1' UNION SELECT username, password FROM users --
+```
+
+실제 실행되는 쿼리:
+```
+SELECT title, content FROM products WHERE id = '1' UNION SELECT username, password FROM users --
+```
+
+원래 상품 정보 결과에 **user 테이블의 username과 password** 가 뒤에 붙어서 같이 출력됨.\
+즉, **화면에 결과가 출력되는 곳**을 이용해서 다른 테이블의 데이터를 끌어오는 기법임.
+
+**조건**
+`UNION`을 사용하려면 다음 두 가지 조건이 맞아야 함.
+1. **컬럼 개수가 동일**해야 함
+2. **각 컬럼의 데이터 타입이 호환**되어야 함
+예를 들어 원래 쿼리가 3개 컬럼을 반환하는데,
+`UNION SELECT` 쪽에서 2개만 반환하면 에러가 남.
+
+**실행흐름**
+1. 컬럼 개수 찾기
+가장 많이 쓰이는 방법은 `ORDER BY` 임
