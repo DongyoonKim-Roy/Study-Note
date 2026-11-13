@@ -150,5 +150,5 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 `UNION SELECT` 쪽에서 2개만 반환하면 에러가 남.
 
 **실행흐름**
-1. 컬럼 개수 찾기
+1. 컬럼 개수 찾기\
 가장 많이 쓰이는 방법은 `ORDER BY` 임
