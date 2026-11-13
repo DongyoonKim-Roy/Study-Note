@@ -103,6 +103,7 @@ SELECT * FROM users WHERE username = '' AND 1=CONVERT(int, @@VERSION) -- - AND p
 - 실제 데이터
 
 **장점과 한계**
+
 장점
 - 직관적이고 빠름
 - 한 번의 요청으로 정보를 바로 확인 가능
