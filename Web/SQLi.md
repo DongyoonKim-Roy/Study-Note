@@ -184,6 +184,7 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 이렇게 하면 원래 결과 대신(또는 함께) `users` 테이블의 데이터가 나타남.
 
 **실제 쿼리 예시**
+
 원래 쿼리 : 
 ```
 SELECT name, description FROM products WHERE id = '1';
