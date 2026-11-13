@@ -169,5 +169,9 @@ SELECT title, content FROM products WHERE id = '1' UNION SELECT username, passwo
 에러가 나지 않는 시점이 컬럼 개수임.
 
 2. 어느 컬럼이 화면에 출력되는지 확인\
-
-
+  컬럼 개수를 알았으면, 어떤 위치에 데이터를 넣어야 화면에 보이는지 테스트 함.
+```
+' UNION SELECT 'a', 'b', 'c' -- -
+```
+화면에 `a`, `b`, `c` 중 어떤 것이 보이는지 확인함.\
+보이는 위치가 바로 **데이터를 출력할 수 있는 컬럼**임.
