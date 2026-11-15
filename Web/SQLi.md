@@ -382,6 +382,6 @@ SELECT * FROM products WHERE id = '1' AND IF(SUBSTRING((SELECT password FROM use
 
 **정리**
 Time-based Blind SQLi는\
-"**조건이 참일 때만 의도적으로 응답을 늦춰서, 시간 차이로 데이터를 알아내는 기법**" 임.
-가낭 느리지만,
+"**조건이 참일 때만 의도적으로 응답을 늦춰서, 시간 차이로 데이터를 알아내는 기법**" 임.\
+가낭 느리지만,\
 **아무 반응이 없는 환경에서도** 정보를 추출할 수 있다는 점에서 강력한 최후의 수단임.
