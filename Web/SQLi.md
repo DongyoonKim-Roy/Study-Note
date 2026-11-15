@@ -251,4 +251,47 @@ SELECT name, description FROM products WHERE id = '1' UNION SELECT username, pas
   ' AND 1=1 -- -
   ' AND 1=2 -- -
   ```
-2. 
+2. 데이터 추출
+  ```
+  ' AND SUBSTRING((SELECT password FROM users WHERE username='admin'),1,1)='a'--
+  ```
+  - 페이지가 정상이면 -> 첫 글자는 `a`
+  - 아니면 -> `b`, `c`, ... 를 차례로 시도
+3. 길이 확인 후 반복
+  ```
+  ' AND LENGTH((SELECT password FROM users WHERE username='admin'))=32--
+  ```
+  길이를 먼저 알아낸 뒤, 한 글자씩 추출
+
+**실제 예시**
+
+정상 쿼리 :
+```
+SELECT * FROM products WHERE id = 'userInput';
+```
+
+공격자 쿼리 :
+```
+SELECT * FROM products WHERE id = '1' AND SUBSTRING((SELECT password FROM users WEHRE username='admin'),1,1)='a'--'
+```
+- 조건이 참이면 상품이 정상적으로 보임
+- 조건이 거짓이면 상품이 안 보이거나 내용이 달라짐
+
+이 차이로 비밀번호를 한 글자씩 알아냄.
+
+**장점과 한계**
+장점
+- 에러도, 화면 출력도 필요 없음
+- 거의 모든 환경에서 사용 가능
+- Union이 막혀 있어도 동작하는 경우가 많음
+
+한계
+- 매우 느림 (요청 수가 많음)
+- 페이지 차이를 자동으로 판별하는 도구가 필요함
+- 음답이 완전히 동일하면 사용 불가 (이때는 Time-based로 전환)
+
+정리
+Blooean-based Blind SQLi는
+**"참일 때와 거짓일 때의 페이지 차이를 이용해서, 데이터를 한 글자씩 추측하는 기법"**임.
+눈에 띄게 빠르거나 직관적이지는 않지만,
+다른 방법이 모두 막혔을 때 **최후의 수단**으로 매우 강력함.
