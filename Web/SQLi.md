@@ -367,3 +367,22 @@ SELECT * FROM products WHERE id = '1' AND IF(SUBSTRING((SELECT password FROM use
 | MySQL | SLEEP(5) | IF(조건, SLEEP(5), 0) |
 | MSSQL | WAITFOR DELAY '0:0:5' | IF(조건) WAITFOR DELAY '0:0:5' |
 | PostgreSQL | pg_sleep(5) | CASE WHEN 조건 THEN pg_sleep(5) END |
+
+**장점과 한계**
+
+장점
+- 페이지 변화가 전혀 없어도 사용 가능
+- 에러도, 출력도 필요 없음
+- 다른 방법이 모두 실패했을 때 사용 가능
+
+한계
+- 가장 느림 (요청마다 대기 시간 발생)
+- 네트워크 지연과 구분하기 어려울 수 있음
+- 자동화 도구 없이는 현실적으로 힘듦
+
+**정리**
+Time-based Blind SQLi는\
+"**조건이 참일 때만 의도적으로 응답을 늦춰서, 시간 차이로 데이터를 알아내는 기법**" 임.\
+
+가낭 느리지만,
+**아무 반응이 없는 환경에서도** 정보를 추출할 수 있다는 점에서 강력한 최후의 수단임.\
