@@ -294,7 +294,8 @@ SELECT * FROM products WHERE id = '1' AND SUBSTRING((SELECT password FROM users 
 - 페이지 차이를 자동으로 판별하는 도구가 필요함
 - 음답이 완전히 동일하면 사용 불가 (이때는 Time-based로 전환)
 
-정리
+**정리**
+
 Blooean-based Blind SQLi는\
 **참일 때와 거짓일 때의 페이지 차이를 이용해서, 데이터를 한 글자씩 추측하는 기법**임.\
 눈에 띄게 빠르거나 직관적이지는 않지만,\
