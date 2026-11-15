@@ -361,3 +361,9 @@ SELECT * FROM products WHERE id = '1' AND IF(SUBSTRING((SELECT password FROM use
 - 조건이 **거짓**이면 -> 바로 응답
 공격자는 이 **느림 / 빠름**의 차이로 비밀번호를 알아냄.
 
+**DBMS 별 지연 함수**
+| DBMS | 지연 함수 | 예시 |
+| --- | --- | --- |
+| MySQL | SLEEP(5) | IF(조건, SLEEP(5), 0) |
+| MSSQL | WAITFOR DELAY '0:0:5' | IF(조건) WAITFOR DELAY '0:0:5' |
+| PostgreSQL | pg_sleep(5) | CASE WHEN 조건 THEN pg_sleep(5) END |
