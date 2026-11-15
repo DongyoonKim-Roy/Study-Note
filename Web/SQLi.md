@@ -40,6 +40,7 @@ SELECT * FROM users WHERE username = 'usernameInput' AND password = '' OR '1'='1
 - 브라우저가 아닌 `데이터베이스`를 직접 조작
 - 데이터 탈취, 변조, 삭제, 경우에 따라 서버 명령 실행까지 가능
 
+---
 ## 2.SQLi를 통해 가능한 공격들
 공격자는 데이터베이스에 보내는 쿼리를 조작할 수 있음.
 
@@ -51,6 +52,7 @@ SELECT * FROM users WHERE username = 'usernameInput' AND password = '' OR '1'='1
 - 데이터베이스 서버 장악 : 일부 DBMS에서 OS 명령 실행 (`xp_cmdshell`, `LOAD_FILE` 등)
 - 다른 시스템으로 확장 : 내부 네트워크 정보 수집 후 추가 공격
 
+---
 ## 3. SQLi 유형
 ### 3.1 Error-based SQLi
 웹사이트가 데이터베이스와 통신하다 `에러가 발생했을 때`, 그 에러 메시지를 사용자에게 그대로 보여주면서 생기는 취약점.\
@@ -114,6 +116,7 @@ SELECT * FROM users WHERE username = '' AND 1=CONVERT(int, @@VERSION) -- - AND p
 - 최신 웹 어플리케이션은 대부분 에러를 사용자에게 보여주지 않음
 - DBMS마다 에러를 유발하는 문법이 조금씩 다름
 
+---
 ### 3.2 Union-based SQLi
 웹사이트가 데이터베이스에서 가져온 결과를 **화면에 그대로 출력**할 때 생기는 취약점.\
 정상적인 경우에는 사용자가 요청한 데이터만 보여줘야 하지만,\
@@ -216,6 +219,7 @@ SELECT name, description FROM products WHERE id = '1' UNION SELECT username, pas
 - 컬럼 수와 데이터 타입을 맞춰야 함
 - 일부 필터나 WAF가 `UNION` 키워드를 차단하는 경우가 있음
 
+---
 ### 3.3 Boolean-based Blind SQLi
 웹사이트가 데이터베이스 결과를 **화면에 직접 보여주지도 않고**,\
 에러 메시지도 **보여주지 않을 때** 사용하는 기법.\
@@ -296,6 +300,7 @@ Blooean-based Blind SQLi는\
 눈에 띄게 빠르거나 직관적이지는 않지만,\
 다른 방법이 모두 막혔을 때 **최후의 수단**으로 매우 강력함.
 
+---
 ### 3.4 Time-based Blind SQLi
 웹사이트가 결과를 화면에 보여주지도 않고,\
 에러 메세지도 보여주지 않으며,\
