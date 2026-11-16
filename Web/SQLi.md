@@ -283,7 +283,8 @@ SELECT * FROM products WHERE id = '1' AND SUBSTRING((SELECT password FROM users 
 
 이 차이로 비밀번호를 한 글자씩 알아냄.
 
-**장점과 한계**\
+**장점과 한계**
+
 **장점**
 - 에러도, 화면 출력도 필요 없음
 - 거의 모든 환경에서 사용 가능
