@@ -174,3 +174,30 @@ Domain/Forest에서 **특정 역할은 한 대의 DC만** 담당.
 
 -> 특히 **PDC Emulator**는 실무와 공격 모두에서 자주 언급됨.
 
+---
+**Global Catalog (GC)**
+- Forest 전체의 **일부 속성만** 갖고 있는 부분 복제본임
+- 기본적으로 Forest Root Domain의 DC가 GC 역할을 함
+- 다른 도메인의 객체를 빠르게 검색할 때 사용됨
+- 포트 : 3268 (LDAP), 3269 (LDAPS)
+
+---
+**기본 고권한 그룹 (Default Privileged Groups)**
+- **Domain Admins**
+- **Enterprise Admins**
+- **Schema Admins**
+- **Administrators** (Domain Local)
+- **Account Operators**, **Backup Operators**, **Server Operators** 등
+
+---
+**Replication (복제) 개념**
+- 같은 도메인의 DC끼리는 AD 데이터베이스를 **멀티 마스터 복제** 함
+- 변경 사항은 일정 시간 안에 다른 DC로 전파됨
+- 사이트 간에는 복제 주기가 더 길어질 수 있음
+
+---
+**SYSVOL**
+- 그룹 정책(GPO) 파일과 스크립트가 저장되는 공유 폴더임
+- 경로 예시 : `\\domain\SYSVOL\domain\Policies`
+- 인증된 사용자라면 보통 읽을 수 있어서, 열거 시 자주 확인함
+
