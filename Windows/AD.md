@@ -72,5 +72,12 @@ corp.local                  ← 트리의 루트 도메인
 - Forest 수준에서만 존재하는 고권한 그룹 :
   - **Enterprise Admins**
   - **Schema Admins**
- 
+```
+Forest
+├── Tree 1 (corp.local)
+│   ├── dev.corp.local
+│   └── hr.corp.local
+└── Tree 2 (partner.com)      ← 네임스페이스가 다름
+    └── eu.partner.com
+```
 - 
