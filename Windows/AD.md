@@ -80,4 +80,24 @@ Forest
 └── Tree 2 (partner.com)      ← 네임스페이스가 다름
     └── eu.partner.com
 ```
-- 
+
+---
+### Organizational Unit (OU)
+- Domain 안에 있는 **컨테이너**
+- 사용자, 컴퓨터, 그룹 등을 논리적으로 그룹화
+- **Group Policy**를 적용하거나 **권한 위임 (Delegation)** 을 할 때 가장 많이 사용
+- OU 안에 또 OU를 넣을 수 있어서 계층 구조를 만들 수 있음
+
+
+### 전체 구조 예시
+```
+Forest: corp.local
+├── Domain: corp.local (Forest Root Domain)
+│   ├── OU: IT
+│   │   ├── OU: Servers
+│   │   └── OU: Users
+│   ├── OU: HR
+│   └── Domain: it.corp.local (Child Domain)
+│       └── OU: Developers
+└── Domain: partner.corp.local (또 다른 Tree)
+```
