@@ -31,6 +31,20 @@ Windows 도메인 환경에서 **인증(Authentication)** 과 **인가(Authoriza
 Active Directory는 단순한 사용자 목록이 아니라,\
 **도메인 내의 모든 보안 주체와 그 관계를 중앙에서 관리하고, Kerberos/NTLM을 통해 인증하며, ACL과 GPO를 통해 권한을 제어하는 디렉터리 서비스**임.
 
+---
 ## 1.1 Active Directory 구조적 특징 상세 설명
-**1. Domain(도메인)**
-2. 
+### Domain (도메인)
+Domain은 Active Directory의 **기본 관리 단위이자 보안 경계(Security Boundary)** 임
+- 하나의 Domain은 자체적인 AD 데이터베이스를 가지며, 그 안의 Domain Controller들이 이 데이터베이스를 복제함
+- Domain 안에는 사용자, 컴퓨터, 그룹, OU, GPO 등이 존재함
+- **Domain Admins** 그룹은 해당 Domain 내의 거의 모든 객체에 대해 완전한 제어권을 가짐
+- 일반적으로 하나의 DNS 네임스페이스를 가짐 (예: `corp.local`)
+- 보안 경계라는 의미는, **기본적으로 Domain 밖의 계정은 Domain 내부 리소스에 접근할 수 없다**
+
+---
+### Tree / Forest
+**Tree (트리)**
+- **연속된(Contiguous) DNS 네임스페이스**를 가진 Domain들의 집합임
+- 부모-자식 관계로 구성됨
+  예 : `corp.local` (부모) -> `dev.corp.local`, `hr.corp.local` (자식)
+- 부모-자식 Domain 사이에는 **자동으로 양방향 전이적 신뢰 (Two-way Transitive Trust)** 가 생성됨
