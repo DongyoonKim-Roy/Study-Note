@@ -210,3 +210,48 @@ Forest -> Domain -> OU로 이루어진 계층 구조를 갖고 있으며,\
 **Kerberos**를 통해 안전한 인증을 제공하고,\
 **Group Policy**로 대규모 관리를 가능하게 함.
 
+---
+## 2. Attacking Active Directory Authentication
+## 2.1 NTLM Authentication
+**NTLM** (NT LAN Manager)은 **Challenge-Response** 방식의 인증 프로토콜임.\
+
+---
+**동작 방식 (Challenge-Response)**
+NTLM은 비밀번호를 네트워크로 직접 전송하지 않고 아래 순서로 동작함 :
+1. **협상 (Negotiation)**
+  클라이언트가 서버에게 자신이 지원하는 NTLM 버전과 기능을 알림.
+2. **챌린지 (Challenge)**
+  서버가 랜덤한 숫자(Challenge, 보통 8바이트 또는 16바이트)를 클라이언트에게 보냄.
+3. **응답 (Response)**
+  클라이언트는 자신의 **비밀번호 해시(NT Hash)** 를 키로 사용해서 서버가 보낸 Challenge를 암호화 (또는 HMAC)한 값을 계산해 서버에 돌려줌. 
+4. **검증**
+  서버(또는 Domain Controller)도 동일한 방식으로 계산한 뒤, 클라이언트가 보내온 값과 비교함. 일치하면 인증 성공.
+
+이 과정에서 **실제 비밀번호나 NT Hash 자체는 네트워크를 타고 전달되지 않음**.\
+다만, 응답 값(NTLMv1/NTLMv2 Response)을 얻으면 오프라인에서 크래킹을 시도할 수 있음.
+
+**NTLMv1 vs NTLMv2**
+| 구분 | NTLMv1 | NTLMv2 |
+| --- | --- | --- |
+| 보안 강도 | 약함 | 상대적으로 강함 |
+| 응답 계산 방식 | DES 기반 (취약) | HMAC-MD5 기반 |
+| 현재 상태 | 거의 사용되지 않음 (비활성화 권장) | 현재 대부분의 NTLM이 이것 |
+| 크래킹 난이도 | 매우 쉬움 | 상대적으로 어려움 (그래도 가능) |
+현대 환경에서 "NTLM"이라고 하면 거의 **NTLMv2**를 의미함.
+
+**NT Hash란?**
+- 사용자 비밀번호를 **MD4**로 해시한 값임 (16 바이트)
+- 도메인 컨트롤러의 `ntds.dit`나 로컬 SAM에 저장됨
+- NTLM 인증과 Pass-the-Hash 모두 이 값을 사용함
+
+중요 구분 :
+- **NT Hash** : 실제 비밀번호 해시. 이것을 알면 Pass-the-Hash가 가능함
+- NetNTLM (NTLMv1/v2 Response) : 네트워크에서 갭처되는 챌린지-리스폰스 값. 이것을 크래킹하면 비밀번호를 얻을 수 있음.
+
+**Pass-the-Hash와의 관계**
+NTLM의 특징 때문에 다음이 가능 : 
+- 공격자가 어떤 방식으로든 **NT Hash**를 얻었으면,
+- 원래 비밀번호를 몰라도 그 해시를 이용해 NTLM 인증을 통과할 수 있음
+
+이것을 **Pass-the-Hash (PtH)** 라고 부름.\
+Kerberos에도 Pass-the-Ticket 같은 유사 개념ㅇ이 있지만, NTLM 환경에서 PtH는 특히 강력하고 오래전부터 사용되어 온 기법임.
