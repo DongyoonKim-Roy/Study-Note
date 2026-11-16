@@ -43,8 +43,15 @@ Domain은 Active Directory의 **기본 관리 단위이자 보안 경계(Securit
 
 ---
 ### Tree / Forest
-**Tree (트리)**
+**Tree**
 - **연속된(Contiguous) DNS 네임스페이스**를 가진 Domain들의 집합임
 - 부모-자식 관계로 구성됨
   예 : `corp.local` (부모) -> `dev.corp.local`, `hr.corp.local` (자식)
 - 부모-자식 Domain 사이에는 **자동으로 양방향 전이적 신뢰 (Two-way Transitive Trust)** 가 생성됨
+
+**Forest**
+- 하나 이상의 Tree로 구성된 **최상위 보안 경계**임
+- Forest 안의 모든 Domain은 다음을 공유함 :
+  - Schema (객체 클래스와 속성 정의)
+  - Configuration 파티션
+  - Global Catalog 
