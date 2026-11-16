@@ -471,3 +471,10 @@ SELECT * FROM products WHERE id = '1'; UPDATE users SET password='hacked' WHERE 
 - DBMS가 여러 문장 실행을 허용해야 함
 - 많은 최신 환경에서는 기본적으로 막혀 있음
 - WAF나 입력 필터가 `;`를 차단하는 경우 많음
+
+**정리**
+Stacked Queries는
+"**세미콜론을 이용해 원래 쿼리 뒤에 새로운 SQL 명령을 붙여 연속 실행하는 기법**"임.
+
+다른 SQLi 기법보다 **훨씬 직접적이고 파괴적인** 행위가 가능하지만,\
+환경에 따라 사용할 수 없는 경우가 많음.
