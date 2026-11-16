@@ -88,6 +88,53 @@ Forest
 - **Group Policy**를 적용하거나 **권한 위임 (Delegation)** 을 할 때 가장 많이 사용
 - OU 안에 또 OU를 넣을 수 있어서 계층 구조를 만들 수 있음
 
+---
+### Trust
+Trust는 **서로 다른 Domain(또는 Forest) 간에 인증과 리소스 접근을 허용**하는 관계.
+
+**주요 특성**
+| 특성 | 설명 |
+| --- | --- |
+| 방향 | One-way (단방향) 또는 Two-way (양방향) |
+| 전이성 | Transitive (A→B, B→C이면 A→C 가능) 또는 Non-transitive |
+| 자동/수동 | Parent-Child, Tree-Root는 자동 생성. 나머지는 수동 생성 |
+
+**주요 Trust 종류**
+- **Parent-Child Trust** : 같은 Tree 안의 부모-자식 Domain 간 (자동, 양방향, 전이적)
+- **Tree-Root Trust** : Forest 내 서로 다른 Tree의 루트 Domain 간 (자동)
+- **External Trust** : 서로 다른 Forest의 Domain 간 (수동, 보통 비전이적)
+- **Forest Trust** : Forest 전체 간의 신뢰 (Windows Server 2003 이후)
+- **Shortcut Trust** : 성능 최적화를 위한 직접 신뢰
+
+**보안적 의미** : 
+Trust가 있으면 한쪽 Domain의 사용자가 다른 Domain의 리소스에 접근할 수 있음.\
+공격자 입장에서는 Trust를 통해 **횡적 이동 (Lateral Movement)** 이나 **도메인 간 권한 상승** 경로를 찾을 수 있음.
+
+---
+### SID (Security Identifier)
+SID는 Active Directory의 모든 **보안 주체(Security Principal)** 에게 부여되는 고유 식별자 임.\
+권한 판단의 실제 기준은 사용자 이름이 아니라 **SID**임.
+
+**SID 구조 예시**
+```
+S-1-5-21-3623811015-3361044348-30300820-1013
+│ │ │  └──────── Domain Identifier ────────┘ └ RID
+│ │ └─ Identifier Authority (5 = NT Authority)
+│ └── Revision
+└── SID 문자열 시작
+```
+- **Domain Identifier** : 해당 Domain을 고유하게 식별하는 부분 (Domain 생성 시 랜덤 생성)
+- **RID (Relative Identifier)** : Domain 내에서 객체를 구분하는 번호
+  - Administrator : 보통 500
+  - Guest : 501
+  - Domain Admins : 512
+  - 일반 사용자 : 1000번대 이후부터 순차 할당
+
+**중요한 특징**
+- 사용자/그룹/컴퓨터 계정이 생성될 때 SID가 할당되며, **계정을 삭제해도 SID는 재사용되지 않음**.
+- 접근 토큰 (Access Token)과 ACL에는 사용자 이름이 아니라 SID가 기록됨.
+- **SID History** : 도메인 마이그레이션 시 이전 SID를 보존하는 속성. 공격에 악용될 수 있는 지점.
+- Well-known SID도 존재함 (예 : `S-1-5-32-544` = 로컬 Administrators 그룹).
 
 ### 전체 구조 예시
 ```
