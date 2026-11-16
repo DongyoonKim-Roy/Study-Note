@@ -88,6 +88,16 @@ Forest
 - **Group Policy**를 적용하거나 **권한 위임 (Delegation)** 을 할 때 가장 많이 사용
 - OU 안에 또 OU를 넣을 수 있어서 계층 구조를 만들 수 있음
 
+```
+corp.local (Domain)
+├── OU=Servers
+│   ├── OU=Domain Controllers
+│   └── OU=File Servers
+├── OU=Users
+│   ├── OU=HR
+│   └── OU=IT
+└── OU=Workstations
+```
 ---
 ### Trust
 Trust는 **서로 다른 Domain(또는 Forest) 간에 인증과 리소스 접근을 허용**하는 관계.
