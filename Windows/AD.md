@@ -255,4 +255,4 @@ NTLM의 특징 때문에 다음이 가능 :
 - 원래 비밀번호를 몰라도 그 해시를 이용해 NTLM 인증을 통과할 수 있음
 
 이것을 **Pass-the-Hash (PtH)** 라고 부름.\
-Kerberos에도 Pass-the-Ticket 같은 유사 개념ㅇ이 있지만, NTLM 환경에서 PtH는 특히 강력하고 오래전부터 사용되어 온 기법임.
+Kerberos에도 Pass-the-Ticket 같은 유사 개념이 있지만, NTLM 환경에서 PtH는 특히 강력하고 오래전부터 사용되어 온 기법임.
