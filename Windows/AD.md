@@ -201,3 +201,12 @@ Domain/Forest에서 **특정 역할은 한 대의 DC만** 담당.
 - 경로 예시 : `\\domain\SYSVOL\domain\Policies`
 - 인증된 사용자라면 보통 읽을 수 있어서, 열거 시 자주 확인함
 
+---
+### 요약
+**Active Directory**는\
+"**회사 전체의 신원 (Identity) 과 권한을 중앙에서 관리하는 거대한 디렉터리 + 인증 시스템**"임.
+
+Forest -> Domain -> OU로 이루어진 계층 구조를 갖고 있으며,\
+**Kerberos**를 통해 안전한 인증을 제공하고,\
+**Group Policy**로 대규모 관리를 가능하게 함.
+
