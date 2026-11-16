@@ -32,4 +32,5 @@ Active Directory는 단순한 사용자 목록이 아니라,\
 **도메인 내의 모든 보안 주체와 그 관계를 중앙에서 관리하고, Kerberos/NTLM을 통해 인증하며, ACL과 GPO를 통해 권한을 제어하는 디렉터리 서비스**임.
 
 ## 1.1 Active Directory 구조적 특징 상세 설명
-1. Domain(도메인)
+**1. Domain(도메인)**
+2. 
