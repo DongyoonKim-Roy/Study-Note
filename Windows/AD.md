@@ -160,4 +160,16 @@ Forest: corp.local
 └── Domain: partner.corp.local (또 다른 Tree)
 ```
 
+---
+### 추가
+**FSMO Roles (Flexible Single Master Operations)**
+Domain/Forest에서 **특정 역할은 한 대의 DC만** 담당.
+| 역할 | 범위 | 하는 일 | 중요도 |
+| --- | --- | --- | --- |
+| Schema Master | Forest | 스키마 변경 | 중 |
+| Domain Naming Master | Forest | 도메인 추가/제거 | 중 |
+| PDC Emulator | Domain | 비밀번호 변경, 시간 동기화, 계정 잠금 등 | 높음 |
+| RID Master | Domain | RID 풀 할당 | 중 |
+| Infrastructure Master | Domain | 크로스 도메인 참조 업데이트 | 낮음 |
+-> 특히 **PDC Emulator**는 실무와 공격 모두에서 자주 언급됨.
 
